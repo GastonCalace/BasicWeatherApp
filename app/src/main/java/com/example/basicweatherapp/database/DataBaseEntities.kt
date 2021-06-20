@@ -3,7 +3,7 @@ package com.example.basicweatherapp.database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.basicweatherapp.domain.CurrentWeather
-import com.example.basicweatherapp.domain.WeatherDay
+import com.example.basicweatherapp.domain.DayWeather
 
 @Entity
 data class DatabaseCurrentWeather constructor(
@@ -13,7 +13,8 @@ data class DatabaseCurrentWeather constructor(
     val main: String)
 
 @Entity
-data class DatabaseWeatherDay constructor(
+data class DatabaseDayWeather constructor(
+    @PrimaryKey
     val tempMin: Double,
     val tempMax: Double,
     val main: String)
@@ -25,9 +26,9 @@ fun DatabaseCurrentWeather.asDomainModel(): CurrentWeather {
             main = this.main)
 }
 
-fun List<DatabaseWeatherDay>.asDomainModel(): List<WeatherDay> {
+fun List<DatabaseDayWeather>.asDomainModel(): List<DayWeather> {
     return map {
-        WeatherDay(
+        DayWeather(
             tempMin = it.tempMin,
             tempMax = it.tempMax,
             main = it.main

@@ -24,5 +24,5 @@ interface ApiService {
         @Query("lon") lon: String,
         @Query("exclude") exclude: String = "minutely,hourly,daily,alerts",
         @Query("units") units: String = "metric"
-    ): List<NetworkWeatherDay>
+    ): List<NetworkDayWeather>
 }

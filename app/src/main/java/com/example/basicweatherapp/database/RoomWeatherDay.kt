@@ -5,26 +5,26 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
-interface WeatherDayDao {
-    @Query("SELECT * FROM DatabaseWeatherDay")
-    fun getWeatherOfWeek(): LiveData<DatabaseWeatherDay>
+interface DayWeatherDao {
+    @Query("SELECT * FROM DatabaseDayWeather")
+    fun getWeatherOfWeek(): LiveData<DatabaseDayWeather>
 
-    @Query("DELETE FROM DatabaseWeatherDay")
+    @Query("DELETE FROM DatabaseDayWeather")
     fun clear()
 }
 
-@Database(entities = [DatabaseWeatherDay::class], version = 1)
-abstract class WeatherDayDatabase : RoomDatabase() {
-    abstract val weatherDayDao: WeatherDayDao
+@Database(entities = [DatabaseDayWeather::class], version = 1)
+abstract class DayWeatherDatabase : RoomDatabase() {
+    abstract val weatherDayDao: DayWeatherDao
 }
 
-private lateinit var INSTANCE: WeatherDayDatabase
+private lateinit var INSTANCE: DayWeatherDatabase
 
-fun getDatabaseWeatherDay(context: Context): WeatherDayDatabase {
-    synchronized(WeatherDayDatabase::class.java){
+fun getDatabaseWeatherDay(context: Context): DayWeatherDatabase {
+    synchronized(DayWeatherDatabase::class.java){
         if (!::INSTANCE.isInitialized) {
             INSTANCE = Room.databaseBuilder(context.applicationContext,
-                WeatherDayDatabase::class.java,
+                DayWeatherDatabase::class.java,
                 "RoomWeatherDay").build()
         }
     }
