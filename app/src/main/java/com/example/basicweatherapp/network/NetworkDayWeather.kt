@@ -4,9 +4,9 @@ import com.example.basicweatherapp.database.DatabaseDayWeather
 import com.squareup.moshi.Json
 
 data class NetworkDayWeather(
-        @Json(name = "temp.min") val tempMin: Double,
-        @Json(name = "temp.max") val tempMax: Double,
-        @Json(name = "main") val main: String
+        val tempMin: Double,
+        val tempMax: Double,
+        val main: String
 )
 
 fun List<NetworkDayWeather>.asDatabaseModel(): Array<DatabaseDayWeather> {

@@ -1,11 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.basicweatherapp.weatherfragment.WeatherFragmentViewModel" />
+        <variable
+            name="currentWeather"
+            type="com.example.basicweatherapp.domain.CurrentWeather" />
+    </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintWeather"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
+
+        <FrameLayout
+            android:id="@+id/frame_weather"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:weatherRightNow="@{currentWeather}">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:text="@{currentWeather.description}"/>
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/ray_image"-->
+<!--                android:layout_marginTop="150dp"-->
+<!--                app:rayBinder="@{currentWeather}"-->
+<!--                android:visibility="gone"/>-->
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/ray_image"-->
+<!--                android:layout_marginTop="130dp"-->
+<!--                android:layout_marginStart="170dp"-->
+<!--                app:rayBinder="@{currentWeather}"-->
+<!--                android:visibility="gone"/>-->
+<!--            <ImageView-->
+<!--                android:id="@+id/cloudOne"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="-40dp"-->
+<!--                android:layout_marginStart="80dp"-->
+<!--                android:src="@drawable/cloudone_image"-->
+<!--                android:visibility="gone"-->
+<!--                app:cloudBinder="@{currentWeather}"/>-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/cloudTwo"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="-30dp"-->
+<!--                android:layout_marginStart="200dp"-->
+<!--                android:layout_marginEnd="-200dp"-->
+<!--                android:src="@drawable/clodutwo_image"-->
+<!--                android:visibility="gone"-->
+<!--                app:cloudBinder="@{currentWeather}"/>-->
+<!--            <ImageView-->
+<!--                android:id="@+id/sun"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="-100dp"-->
+<!--                android:layout_marginStart="-80dp"-->
+<!--                android:src="@drawable/sun_image"-->
+<!--                app:sunBinder="@{currentWeather}"-->
+<!--                android:visibility="gone"/>-->
+<!--            <ImageView-->
+<!--                android:id="@+id/cloudThree"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/cloudthree_image"-->
+<!--                android:layout_marginTop="-20dp"-->
+<!--                android:layout_marginStart="-40dp"-->
+<!--                android:visibility="gone"-->
+<!--                app:cloudBinder="@{currentWeather}"/>-->
+
+        </FrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_days"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/frame_weather"
+            tools:listitem="@layout/list_view_item"
+            app:listData="@{viewModel}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

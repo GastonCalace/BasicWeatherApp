@@ -1,17 +1,27 @@
 package com.example.basicweatherapp.network
 
 import com.example.basicweatherapp.database.DatabaseCurrentWeather
-import com.squareup.moshi.Json
 
 data class NetworkCurrentWeather(
-        @Json(name = "timezone") val timeZone: String,
+        val dayTime: Int,
+        val timeZone: String,
+        val timeZoneOffSet: Int,
+        val sunRise: Int,
+        val sunSet: Int,
         val temp: Double,
-        val main: String
-)
+        val feelsLike: Double,
+        val weatherId: Int,
+        val description: String)
 
 fun NetworkCurrentWeather.asDatabaseModel(): DatabaseCurrentWeather {
         return DatabaseCurrentWeather(
+                dayTime = this.dayTime,
                 timeZone = this.timeZone,
+                timeZoneOffSet = this.timeZoneOffSet,
+                sunRise = this.sunRise,
+                sunSet = this.sunSet,
                 temp = this.temp,
-                main = this.main)
+                feelsLike = this.feelsLike,
+                weatherId = this.weatherId,
+                description = this. description)
 }

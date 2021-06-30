@@ -9,11 +9,14 @@ interface CurrentWeatherDao {
     @Query("SELECT * FROM DatabaseCurrentWeather")
     fun getCurrentWeather(): LiveData<DatabaseCurrentWeather>
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(currentWeather: DatabaseCurrentWeather)
+
     @Query("DELETE FROM databasecurrentweather")
     fun clearPastWeather()
 }
 
-@Database(entities = [DatabaseCurrentWeather::class], version = 1)
+@Database(entities = [DatabaseCurrentWeather::class], version = 3)
 abstract class CurrentWeatherDatabase : RoomDatabase() {
     abstract val currentWeatherDao: CurrentWeatherDao
 }
@@ -25,7 +28,9 @@ fun getDatabaseCurrentWeather(context: Context): CurrentWeatherDatabase {
         if (!::INSTANCE.isInitialized) {
             INSTANCE = Room.databaseBuilder(context.applicationContext,
             CurrentWeatherDatabase::class.java,
-            "RoomCurrentWeather").build()
+            "RoomCurrentWeather")
+                    .fallbackToDestructiveMigration()
+                    .build()
         }
     }
     return INSTANCE
