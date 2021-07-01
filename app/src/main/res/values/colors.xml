@@ -13,5 +13,12 @@
     <color name="color_cloudy_night">#1E3445</color>
     <color name="color_rainy">#61788A</color>
     <color name="color_rainy_night">#1A2025</color>
+    <color name="color_clear_item_list">#00A8C0</color>
+    <color name="color_clear_night_item_list">#0C1B26</color>
+    <color name="color_cloudy_item_list">#34678F</color>
+    <color name="color_cloudy_night_item_list">#0A2031</color>
+    <color name="color_rainy_item_list">#4D6476</color>
+    <color name="color_rainy_night_item_list">#060C11</color>
+    <color name="color_day_weather">#407E7E7E</color>
 
 </resources>

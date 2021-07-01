@@ -6,7 +6,7 @@ import androidx.room.*
 
 @Dao
 interface DayWeatherDao {
-    @Query("SELECT * FROM DatabaseDayWeather")
+    @Query("SELECT * FROM DatabaseDayWeather ORDER BY dayTime ASC")
     fun getWeatherOfWeek(): LiveData<List<DatabaseDayWeather>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -16,7 +16,7 @@ interface DayWeatherDao {
     fun clear()
 }
 
-@Database(entities = [DatabaseDayWeather::class], version = 2)
+@Database(entities = [DatabaseDayWeather::class], version = 3)
 abstract class DayWeatherDatabase : RoomDatabase() {
     abstract val weatherDayDao: DayWeatherDao
 }

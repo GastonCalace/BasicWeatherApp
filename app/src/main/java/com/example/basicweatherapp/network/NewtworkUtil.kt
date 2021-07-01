@@ -2,23 +2,22 @@ package com.example.basicweatherapp.network
 
 
 import org.json.JSONObject
-import java.util.*
-
-import kotlin.collections.ArrayList
 
 fun parseDayWeatherJsonResult(jsonResult: JSONObject): ArrayList<NetworkDayWeather> {
 
     val dailyObjectsJson = jsonResult.getJSONArray("daily")
     val dayWeatherList = ArrayList<NetworkDayWeather>()
 
-    for (i in 0 until dailyObjectsJson.length()) {
+    for (i in 1 until dailyObjectsJson.length()) {
         val dailyJson = dailyObjectsJson.getJSONObject(i)
 
+        val dayTime = dailyJson.getInt("dt")
+        val timeZoneOffSet = jsonResult.getInt("timezone_offset")
         val tempMin = dailyJson.getJSONObject("temp").getDouble("min")
         val tempMax = dailyJson.getJSONObject("temp").getDouble("max")
         val main = dailyJson.getJSONArray("weather").getJSONObject(0).getString("main")
 
-        val networkDayWeather = NetworkDayWeather(tempMin, tempMax, main)
+        val networkDayWeather = NetworkDayWeather(dayTime, timeZoneOffSet, tempMin, tempMax, main)
         dayWeatherList.add(networkDayWeather)
 
     }

@@ -1,4 +1,4 @@
-package com.example.basicweatherapp
+package com.example.basicweatherapp.mapfragment
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

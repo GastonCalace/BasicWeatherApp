@@ -8,8 +8,8 @@ data class CurrentWeather(
         val timeZone: String,
         val sunRise: Date,
         val sunSet: Date,
-        val temp: Double,
-        val feelsLike: Double,
+        val temp: Int,
+        val feelsLike: Int,
         val weatherId: Int,
         val description: String
 )

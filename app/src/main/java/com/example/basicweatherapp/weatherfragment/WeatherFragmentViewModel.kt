@@ -5,16 +5,14 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import androidx.lifecycle.*
-import androidx.lifecycle.Observer
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.basicweatherapp.BasicWeatherApp.Companion.prefs
 import com.example.basicweatherapp.database.getDatabaseCurrentWeather
 import com.example.basicweatherapp.database.getDatabaseWeatherDay
-import com.example.basicweatherapp.domain.DayWeather
 import com.example.basicweatherapp.repository.CurrentWeatherRepository
 import com.example.basicweatherapp.repository.DayWeatherRepository
 import kotlinx.coroutines.launch
-import java.util.*
 
 
 class WeatherFragmentViewModel(application: Application) : AndroidViewModel(application) {
@@ -37,18 +35,6 @@ class WeatherFragmentViewModel(application: Application) : AndroidViewModel(appl
         }
     }
 
-
-//    var weeklyWeather = listOf<DayWeather>(DayWeather("1", "1", "1"),
-//            DayWeather("2", "2", "2"),
-//            DayWeather("3", "3", "3"),
-//            DayWeather("4", "4", "4"),
-//            DayWeather("5", "5", "5"),
-//            DayWeather("6", "6", "6"),
-//            DayWeather("7", "7", "7"),
-//            DayWeather("8", "8", "8"),
-//            DayWeather("9", "9", "9"),
-//            DayWeather("10", "10", "10"),
-//            DayWeather("11", "11", "11"))
     var currentWeather = currentWeatherRepository.currentWeather
     var weeklyWeather = dayWeatherRepository.dayWeather
 

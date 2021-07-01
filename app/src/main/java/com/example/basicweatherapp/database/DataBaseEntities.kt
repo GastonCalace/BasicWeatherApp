@@ -23,6 +23,8 @@ data class DatabaseCurrentWeather constructor(
 @Entity
 data class DatabaseDayWeather constructor(
     @PrimaryKey
+    val dayTime: Int,
+    val timeZoneOffSet: Int,
     val tempMin: Double,
     val tempMax: Double,
     val main: String)
@@ -34,8 +36,8 @@ fun DatabaseCurrentWeather.asDomainModel(): CurrentWeather {
             timeZone = this.timeZone,
             sunRise = Date(this.sunRise.toLong()*1000 - this.timeZoneOffSet.toLong()*1000),
             sunSet = Date(this.sunSet.toLong()*1000 - this.timeZoneOffSet.toLong()*1000),
-            temp = this.temp,
-            feelsLike = this.feelsLike,
+            temp = this.temp.roundToInt(),
+            feelsLike = this.feelsLike.roundToInt(),
             weatherId = this.weatherId,
             description = this. description)
 }
@@ -43,8 +45,9 @@ fun DatabaseCurrentWeather.asDomainModel(): CurrentWeather {
 fun List<DatabaseDayWeather>.asDomainModel(): List<DayWeather> {
     return map {
         DayWeather(
-            tempMin = it.tempMin.roundToInt().toString(),
-            tempMax = it.tempMax.roundToInt().toString(),
+            dayTime = Date(it.dayTime.toLong()*1000 - it.timeZoneOffSet.toLong()*1000),
+            tempMin = it.tempMin.roundToInt(),
+            tempMax = it.tempMax.roundToInt(),
             main = it.main
         )
     }

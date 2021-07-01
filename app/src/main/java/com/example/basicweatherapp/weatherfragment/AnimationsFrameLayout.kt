@@ -2,7 +2,8 @@ package com.example.basicweatherapp
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.animation.ValueAnimator.*
+import android.animation.ValueAnimator.RESTART
+import android.animation.ValueAnimator.REVERSE
 import android.content.Context
 import android.view.View
 import android.view.animation.AccelerateInterpolator
@@ -14,7 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 fun clearDay(context: Context, frameLayout: FrameLayout) {
     val sunBrightness = newItem(context, frameLayout, R.drawable.sun_image, 1f)
     val sunY = moveY(sunBrightness, 30f, 30f)
-    val sunX = moveX(sunBrightness, 30f, 30f)
+    val sunX = moveX(sunBrightness, 30f, 30f, acelerate = false)
 
     val set = AnimatorSet()
     set.playTogether(sunY, sunX)
@@ -31,7 +32,7 @@ fun clearNight(context: Context, frameLayout: FrameLayout) {
     moon.scaleY = moon.scaleX
 
     val moonY = moveY(moon, 0f, 0f)
-    val moonX = moveX(moon, -50f, -50f)
+    val moonX = moveX(moon, -50f, -50f, acelerate = false)
 
     val set = AnimatorSet()
     set.playTogether(moonY, moonX)
@@ -49,7 +50,7 @@ fun fewCloudsDay(context: Context, frameLayout: FrameLayout) {
 
     val sunBrightness = newItem(context, frameLayout, R.drawable.sun_image, 1f)
     val sunY = moveY(sunBrightness, 0f, 0f)
-    val sunX = moveX(sunBrightness, 30f, 30f)
+    val sunX = moveX(sunBrightness, 30f, 30f, acelerate = false)
 
     val cloudThree = newItem(context, frameLayout, R.drawable.cloud_three_image, 0.8f)
     val cloudThreeMoveY = moveY(cloudThree, -20f, -20f)
@@ -73,7 +74,7 @@ fun fewCloudsNight(context: Context, frameLayout: FrameLayout) {
 
     val moon = newItem(context, frameLayout, R.drawable.moon_image, 1f)
     val moonY = moveY(moon, 0f, 0f)
-    val moonX = moveX(moon, -50f, -50f)
+    val moonX = moveX(moon, -50f, -50f, acelerate = false)
 
     val cloudThree = newItem(context, frameLayout, R.drawable.cloud_three_image, 0.8f)
     val cloudThreeMoveY = moveY(cloudThree, -20f, -20f)
@@ -333,14 +334,14 @@ fun thunderStormDay(context: Context, frameLayout: FrameLayout) {
     rayOne.scaleX = .5f
     rayOne.scaleY = rayOne.scaleX
     val rayOneMoveY = moveY(rayOne, 235f, 225f)
-    val rayOneMoveX = moveX(rayOne, 0f, 0f)
+    val rayOneMoveX = moveX(rayOne, 0f, 0f, acelerate = false)
     fadeRay(rayOne)
 
     val rayTwo = newItem(context, frameLayout, R.drawable.ray_image, 0f)
     rayTwo.scaleX = .6f
     rayTwo.scaleY = rayOne.scaleX * 1.2f
     val rayTwoMoveY = moveY(rayTwo, 225f, 235f)
-    val rayTwoMoveX = moveX(rayTwo, 350f, 350f)
+    val rayTwoMoveX = moveX(rayTwo, 350f, 350f, acelerate = false)
     fadeRay(rayTwo)
 
     val cloudZero = newItem(context, frameLayout, R.drawable.cloud_zero_image, 0.95f)
@@ -380,14 +381,14 @@ fun thunderStormNight(context: Context, frameLayout: FrameLayout) {
     rayOne.scaleX = .5f
     rayOne.scaleY = rayOne.scaleX
     val rayOneMoveY = moveY(rayOne, 235f, 225f)
-    val rayOneMoveX = moveX(rayOne, 0f, 0f)
+    val rayOneMoveX = moveX(rayOne, 0f, 0f, acelerate = false)
     fadeRay(rayOne)
 
     val rayTwo = newItem(context, frameLayout, R.drawable.ray_image, 0f)
     rayTwo.scaleX = .6f
     rayTwo.scaleY = rayOne.scaleX * 1.2f
     val rayTwoMoveY = moveY(rayTwo, 225f, 235f)
-    val rayTwoMoveX = moveX(rayTwo, 350f, 350f)
+    val rayTwoMoveX = moveX(rayTwo, 350f, 350f, acelerate = false)
     fadeRay(rayTwo)
 
     val cloudZero = newItem(context, frameLayout, R.drawable.cloud_zero_image, 0.95f)
@@ -558,7 +559,7 @@ private fun stars(context: Context, frameLayout: FrameLayout) {
 
         val moverY = moveY(newStar, locationY, locationY)
 
-        val moverX = moveX(newStar, locationX, locationX)
+        val moverX = moveX(newStar, locationX, locationX, acelerate = false)
 
         val fade = fade(newStar, 300L)
 
@@ -583,7 +584,7 @@ private fun mist(context: Context, frameLayout: FrameLayout) {
 
         val moverY = moveY(newDrizzle, locationY, locationY)
 
-        val moverX = moveX(newDrizzle, locationX, locationX)
+        val moverX = moveX(newDrizzle, locationX, locationX, acelerate = false)
 
         val fade = fade(newDrizzle, 300L)
 
@@ -595,7 +596,8 @@ private fun mist(context: Context, frameLayout: FrameLayout) {
     }
 }
 
-private fun newItem(context: Context, frameLayout: FrameLayout, image: Int, alpha: Float): AppCompatImageView {
+private fun newItem(context: Context, frameLayout: FrameLayout, image: Int,
+                    alpha: Float): AppCompatImageView {
     val newStar = AppCompatImageView(context)
     newStar.alpha = alpha
     newStar.setImageResource(image)
@@ -616,7 +618,8 @@ private fun fade(newStar: AppCompatImageView, duration: Long, delay: Long = 0L):
     return fade
 }
 
-private fun moveX(newStar: AppCompatImageView, start: Float, end: Float, mode: Int = RESTART, duration: Long = 0L, acelerate: Boolean = true): ObjectAnimator? {
+private fun moveX(newStar: AppCompatImageView, start: Float, end: Float, mode: Int = RESTART,
+                  duration: Long = 0L, acelerate: Boolean = true): ObjectAnimator? {
     val moverX = ObjectAnimator.ofFloat(
             newStar, View.TRANSLATION_X, start, end)
     if (acelerate) moverX.interpolator = AccelerateInterpolator(1f)

@@ -1,11 +1,15 @@
 package com.example.basicweatherapp
 
 import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.basicweatherapp.domain.CurrentWeather
+import com.example.basicweatherapp.domain.DayWeather
 import com.example.basicweatherapp.weatherfragment.WeatherFragmentViewModel
 import com.example.basicweatherapp.weatherfragment.WeatherRecyclerViewAdapter
+import java.text.DateFormat
+import java.util.*
 
 @BindingAdapter("listData")
 fun RecyclerView.bindRecyclerView(viewModel: WeatherFragmentViewModel?) {
@@ -45,68 +49,51 @@ fun FrameLayout.bindFrameLayout(currentWeather: CurrentWeather?) {
     }
 }
 
+@BindingAdapter("todayDate")
+fun TextView.bindTodayDate(date: Date?) {
+    if (date != null){
+        val formattedDate = DateFormat.getDateInstance(DateFormat.FULL).format(date)
+        text = formattedDate
+    }
+}
+
+@BindingAdapter("temperatureText")
+fun TextView.bindTemperatureText(temp: Int?) {
+    text = StringBuilder(temp.toString().plus("°C"))
+}
+
+@BindingAdapter("feelsLikeText")
+fun TextView.bindFeelsLikeText(feelsLike: Int?) {
+    text = StringBuilder("Feels like: ".plus(feelsLike.toString()).plus("°C"))
+}
 
 
+@BindingAdapter("nextDays")
+fun FrameLayout.bindDayFrame(main: String?) {
+    if (main != null) {
+        this.removeAllViews()
+        when(main) {
+            "Thunderstorm" -> thunderstormIcon(context, this)
+            "Drizzle", "Rain" -> rainIcon(context, this)
+            "Snow" -> snowIcon(context, this)
+            "Mist", "Smoke", "Haze", "Dust", "Fog", "Sand", "Ash", "Squall",
+            "Tornado" -> mistIcon(context, this)
+            "Clear" -> clearIcon(context, this)
+            "Clouds" -> cloudsIcon(context, this)
+        }
+    }
+}
 
+@BindingAdapter("dayOftheWeek")
+fun TextView.bindDayOfTheWeek(dayWeather: DayWeather?) {
+    if (dayWeather != null){
+        val formattedDate = DateFormat.getDateInstance(DateFormat.FULL).format(dayWeather.dayTime)
+        val splitDate = formattedDate.split(",")
+        text = splitDate[0].trim()
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//@BindingAdapter("sunBinder")
-//fun ImageView.bindSun(currentWeather: CurrentWeather?) {
-//    if (currentWeather?.main == "Clear") {
-//        this.isVisible = true
-//        this.rotater()
-//    } else {
-//        this.isGone = true
-//    }
-//}
-//
-//@BindingAdapter("cloudBinder")
-//fun ImageView.bindCloud(currentWeather: CurrentWeather?) {
-//    this.translater(Math.random().toFloat() * 150, 5000L)
-//    when(currentWeather?.main) {
-//        "Clouds" -> {
-//            this.isVisible = true
-//            this.alpha = 0.8F
-//        }
-//        "Rain" -> {
-//            this.isVisible = true
-//            this.alpha = 0.95F
-//        }
-//        "Thunderstorm"-> this.isVisible = true
-//        "Snow" -> this.isVisible = true
-//        else -> this.isGone = true
-//    }
-//}
-//
-//@BindingAdapter("rainSnow")
-//fun FrameLayout.bindRainSnow(currentWeather: CurrentWeather?) {
-//    when(currentWeather?.main) {
-//        "Rain" -> { rain(this.context, this, 1) }
-//        "Thunderstorm" -> { rain(this.context, this, 3) }
-//        "Snow" -> { snow(this.context, this)}
-//        else -> drizzle(this.context, this)
-//    }
-//}
-//
-//@BindingAdapter("rayBinder")
-//fun ImageView.bindRay(currentWeather: CurrentWeather?) {
-//    if (currentWeather?.main == "Thunderstorm") {
-//        this.isVisible = true
-//        this.fader()
-//    } else {
-//        this.isGone = true
-//    }
-//}
+@BindingAdapter("temperatureMinMaxText")
+fun TextView.bindTemperatureMinMaxText(dayWeather: DayWeather?) {
+    text = StringBuilder("Min:".plus(dayWeather?.tempMin.toString()).plus("°C / ").plus("Max:").plus(dayWeather?.tempMax.toString()).plus("°C"))
+}
