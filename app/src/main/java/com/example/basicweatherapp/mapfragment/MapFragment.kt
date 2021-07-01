@@ -55,6 +55,7 @@ class MapFragment : Fragment() {
         mapFragment?.getMapAsync(callback)
     }
 
+    //Asks for a map and returns it when its ready
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
 
@@ -86,6 +87,7 @@ class MapFragment : Fragment() {
         }
     }
 
+    //Sets the position so it can be selected
     private fun setMapLongClick(map: GoogleMap) {
         map.setOnMapLongClickListener { latLng ->
 
@@ -107,6 +109,7 @@ class MapFragment : Fragment() {
             Manifest.permission.ACCESS_FINE_LOCATION) === PackageManager.PERMISSION_GRANTED
     }
 
+    //Enables current position button in the map
     private fun enableMyLocation() {
         if (isPermissionGranted()) {
             if (ActivityCompat.checkSelfPermission(

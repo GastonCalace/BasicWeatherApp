@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/roboto_mono"
-            android:text="@{currentWeather.timeZone}"
+            app:location="@{currentWeather.timeZone}"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"

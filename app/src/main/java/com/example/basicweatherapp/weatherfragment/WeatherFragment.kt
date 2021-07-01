@@ -21,11 +21,11 @@ class WeatherFragment : Fragment() {
 
         val binding = FragmentWeatherBinding.inflate(inflater)
 
-        viewModel.currentWeather?.observe(viewLifecycleOwner, Observer {
+        viewModel.currentWeather.observe(viewLifecycleOwner, Observer {
             binding.currentWeather = it
         })
 
-        viewModel.weeklyWeather?.observe(viewLifecycleOwner, Observer {
+        viewModel.weeklyWeather.observe(viewLifecycleOwner, Observer {
             binding.viewModel = viewModel
         })
 

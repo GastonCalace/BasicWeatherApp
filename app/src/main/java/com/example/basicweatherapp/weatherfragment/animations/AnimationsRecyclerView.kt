@@ -27,7 +27,7 @@ fun cloudsIcon(context: Context, frameLayout: FrameLayout) {
     val cloudX = positionX(cloud, 0f, 00f)
 
     val set = AnimatorSet()
-    set.playTogether(sunY, sunX, cloudY, cloudY)
+    set.playTogether(sunY, sunX, cloudY, cloudX)
     set.start()
 }
 

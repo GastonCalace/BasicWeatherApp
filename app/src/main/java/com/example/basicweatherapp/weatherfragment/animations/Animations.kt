@@ -100,6 +100,7 @@ internal fun mist(context: Context, frameLayout: FrameLayout) {
     }
 }
 
+//Crates a new Item with image selected into the FrameLayout
 internal fun newItem(context: Context, frameLayout: FrameLayout, image: Int,
                     alpha: Float): AppCompatImageView {
     val item = AppCompatImageView(context)
@@ -113,6 +114,7 @@ internal fun newItem(context: Context, frameLayout: FrameLayout, image: Int,
     return item
 }
 
+//Fade effect
 internal fun fade(newStar: AppCompatImageView, duration: Long, delay: Long = 0L): ObjectAnimator? {
     val fade = ObjectAnimator.ofFloat(newStar, View.ALPHA, 1f)
     fade.duration = duration
@@ -122,16 +124,20 @@ internal fun fade(newStar: AppCompatImageView, duration: Long, delay: Long = 0L)
     return fade
 }
 
+//Sets item in X cardinals
 internal fun positionX(item: AppCompatImageView, start: Float, end: Float, mode: Int = ValueAnimator.RESTART): ObjectAnimator? {
     return ObjectAnimator.ofFloat(
         item, View.TRANSLATION_X, start, end)
 }
 
+//Sets item in Y cardinals
 internal fun positionY(item: AppCompatImageView, start: Float, end: Float): ObjectAnimator? {
     return ObjectAnimator.ofFloat(
         item, View.TRANSLATION_Y, start, end)
 }
 
+
+//Movement of an item in X cardinals
 internal fun moveX(item: AppCompatImageView, start: Float, end: Float, mode: Int = ValueAnimator.RESTART,
                   duration: Long = 0L, acelerate: Boolean = true): ObjectAnimator? {
     val moverX = ObjectAnimator.ofFloat(
@@ -143,6 +149,7 @@ internal fun moveX(item: AppCompatImageView, start: Float, end: Float, mode: Int
     return moverX
 }
 
+//Movement of an item in Y cardinals
 internal fun moveY(item: AppCompatImageView, start: Float, end: Float): ObjectAnimator? {
     val moverY = ObjectAnimator.ofFloat(
         item, View.TRANSLATION_Y, start, end)
@@ -152,6 +159,7 @@ internal fun moveY(item: AppCompatImageView, start: Float, end: Float): ObjectAn
     return moverY
 }
 
+//Fade in - fade out a ray
 internal fun fadeRay(item: AppCompatImageView){
 
     val animator = ObjectAnimator.ofFloat(item, View.ALPHA, 0.5f)

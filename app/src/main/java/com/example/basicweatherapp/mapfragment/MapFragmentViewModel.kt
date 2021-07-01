@@ -7,11 +7,10 @@ import com.google.android.gms.maps.model.LatLng
 
 class MapFragmentViewModel(application: Application): AndroidViewModel(application){
 
-    private val locationLatitude = prefs.getLatitude()
-    private val locationLongitude = prefs.getLongitude()
+    private val location = LatLng(prefs.getLatitude(), prefs.getLongitude())
 
     fun getLocation(): LatLng {
-        return LatLng(locationLatitude, locationLongitude)
+        return location
     }
 
     fun selectLocation(locationSelected: LatLng?) {

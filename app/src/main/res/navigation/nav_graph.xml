@@ -10,9 +10,6 @@
         <action
             android:id="@+id/action_weatherFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
-        <argument
-            android:name="latLng"
-            app:argType="com.google.android.gms.maps.model.LatLng" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"

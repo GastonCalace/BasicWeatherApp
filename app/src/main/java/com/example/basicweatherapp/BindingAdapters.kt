@@ -18,7 +18,7 @@ fun RecyclerView.bindRecyclerView(viewModel: WeatherFragmentViewModel?) {
 }
 
 @BindingAdapter("weatherRightNow")
-fun FrameLayout.bindFrameLayout(currentWeather: CurrentWeather?) {
+fun FrameLayout.bindFrameLayoutWithAmbient(currentWeather: CurrentWeather?) {
     if (currentWeather != null){
         this.removeAllViews()
         if ((currentWeather.dayTime >= currentWeather.sunRise) && (currentWeather.dayTime < currentWeather.sunSet)) {
@@ -49,17 +49,17 @@ fun FrameLayout.bindFrameLayout(currentWeather: CurrentWeather?) {
     }
 }
 
-@BindingAdapter("Location")
+@BindingAdapter("location")
 fun TextView.bindLocation(timeZone: String?) {
     if (timeZone != null){
         var locationName: String?
         var locationNameUnslashed: String?
 
         val splitSlashLocation = timeZone.split("/")
-        locationNameUnslashed = locationNameUnslashed(splitSlashLocation)
+        locationNameUnslashed = uniteUnslashedText(splitSlashLocation)
 
         val splitUnderscoreLocation = locationNameUnslashed?.split("_")
-        locationName = nameLocation(splitUnderscoreLocation)
+        locationName = uniteUnunderscoredText(splitUnderscoreLocation)
         text = locationName
     }
 }
@@ -114,8 +114,7 @@ fun TextView.bindTemperatureMinMaxText(dayWeather: DayWeather?) {
 }
 
 
-
-private fun locationNameUnslashed(location: List<String>?): String? {
+private fun uniteUnslashedText(location: List<String>?): String? {
     var nameLocation: String? = null
     for (i in 1 until (location!!.size)) {
         nameLocation = if (location[i] != location.last() ){
@@ -133,7 +132,7 @@ private fun locationNameUnslashed(location: List<String>?): String? {
     return nameLocation
 }
 
-private fun nameLocation(location: List<String>?): String? {
+private fun uniteUnunderscoredText(location: List<String>?): String? {
     var nameLocation: String? = null
     for (i in 0 until (location?.size ?: 1)) {
         nameLocation = if (nameLocation == null)

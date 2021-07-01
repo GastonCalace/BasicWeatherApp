@@ -5,6 +5,7 @@ import android.app.Application
 class BasicWeatherApp: Application() {
 
     companion object{
+        //Global reference
         lateinit var prefs:Prefs
     }
 

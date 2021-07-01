@@ -11,10 +11,13 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.basicweatherapp.mapfragment.MapFragmentDirections
 import com.example.basicweatherapp.weatherfragment.WeatherFragmentDirections
-import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_main.*
 
+const val HOME_ITEM_ENABLED = "home_item_enabled"
+const val LOCATION_ITEM_ENABLED = "location_item_enabled"
+
 class MainActivity : AppCompatActivity() {
+
 
     lateinit var navController: NavController
     lateinit var homeItem: MenuItem
@@ -34,6 +37,11 @@ class MainActivity : AppCompatActivity() {
 
         homeItem.isEnabled = false
 
+        if (savedInstanceState != null) {
+            homeItem.isEnabled = savedInstanceState.getBoolean(HOME_ITEM_ENABLED)
+            locationItem.isEnabled = savedInstanceState.getBoolean(LOCATION_ITEM_ENABLED)
+        }
+
         bottom_navigation.setOnNavigationItemSelectedListener {
             navigateSelectedItemMenuBar(it, navController, homeItem, locationItem)
         }
@@ -41,19 +49,26 @@ class MainActivity : AppCompatActivity() {
         enableMyLocation()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean(HOME_ITEM_ENABLED, homeItem.isEnabled)
+        outState.putBoolean(LOCATION_ITEM_ENABLED, locationItem.isEnabled)
+        super.onSaveInstanceState(outState)
+    }
+
+    //Navigation between Fragments
     private fun navigateSelectedItemMenuBar(it: MenuItem, navController: NavController,
                                             homeItem: MenuItem, locationItem: MenuItem): Boolean {
         when (it.itemId) {
+            //Navigate to location Fragment and temporary disable location button
             R.id.icon_location -> {
                 navController.navigate(WeatherFragmentDirections.actionWeatherFragmentToMapFragment())
                 it.isEnabled = false
                 homeItem.isEnabled = true
             }
+            //Navigate to weather Fragment and temporary disable map button
             R.id.icon_home -> {
                 navController.navigate(
-                    MapFragmentDirections.actionMapFragmentToWeatherFragment(
-                        LatLng(1.0, 1.0)
-                    )
+                    MapFragmentDirections.actionMapFragmentToWeatherFragment()
                 )
                 it.isEnabled = false
                 locationItem.isEnabled = true
@@ -68,6 +83,7 @@ class MainActivity : AppCompatActivity() {
             Manifest.permission.ACCESS_FINE_LOCATION) === PackageManager.PERMISSION_GRANTED
     }
 
+    //Enable current position in a map
     private fun enableMyLocation() {
         if (!isPermissionGranted()) {
             ActivityCompat.requestPermissions(

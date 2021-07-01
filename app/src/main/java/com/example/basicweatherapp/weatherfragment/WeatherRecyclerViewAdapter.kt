@@ -37,7 +37,7 @@ class WeatherRecyclerViewAdapter :
         }
 
         override fun areContentsTheSame(oldItem: DayWeather, newItem: DayWeather): Boolean {
-            return oldItem.tempMin  == newItem.tempMin
+            return oldItem.dayTime  == newItem.dayTime
         }
     }
 }

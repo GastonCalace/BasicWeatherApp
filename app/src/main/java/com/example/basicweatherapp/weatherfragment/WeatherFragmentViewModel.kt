@@ -28,6 +28,7 @@ class WeatherFragmentViewModel(application: Application) : AndroidViewModel(appl
 
     init {
         viewModelScope.launch {
+            //If there's network available, refreshes databases
             if (isNetworkAvailable(application)) {
                 currentWeatherRepository.refreshCurrentWeather(locationLatitude, locationLongitude)
                 dayWeatherRepository.refreshDaysWeather(locationLatitude, locationLongitude)

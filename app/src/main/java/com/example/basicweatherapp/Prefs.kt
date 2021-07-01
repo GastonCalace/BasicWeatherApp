@@ -4,6 +4,8 @@ import android.content.Context
 
 class Prefs(val context: Context) {
 
+    //Preferences to set and get location selected
+
     private val SHARED_NAME = "MyDatabase"
     private val LATITUDE = "Latitude"
     private val LONGITUDE = "Longitude"

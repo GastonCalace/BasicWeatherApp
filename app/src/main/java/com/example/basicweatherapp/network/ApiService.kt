@@ -45,5 +45,5 @@ object WeatherApi {
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()
 
-    val retrofitService = retrofit.create(ApiService::class.java)
+    val retrofitService: ApiService = retrofit.create(ApiService::class.java)
 }
