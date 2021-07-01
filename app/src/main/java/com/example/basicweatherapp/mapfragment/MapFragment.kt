@@ -32,11 +32,11 @@ class MapFragment : Fragment() {
     private lateinit var map: GoogleMap
     private val ZOOM = 10f
     private var locationSelected: LatLng? = null
-    private val REQUEST_LOCATION_PERMISSION = 1
     private val TAG = MapFragment::class.java.simpleName
+    private val REQUEST_LOCATION_PERMISSION = 1
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
 
         val binding: FragmentMapBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_map, container, false)
@@ -71,8 +71,6 @@ class MapFragment : Fragment() {
 
     private fun setMapStyle(map: GoogleMap) {
         try {
-            // Customize the styling of the base map using a JSON object defined
-            // in a raw resource file.
             val success = map.setMapStyle(
                 MapStyleOptions.loadRawResourceStyle(
                     this.context,
@@ -136,10 +134,8 @@ class MapFragment : Fragment() {
         requestCode: Int,
         permissions: Array<String>,
         grantResults: IntArray) {
-        // Check if location permissions are granted and if so enable the
-        // location data layer.
         if (requestCode == REQUEST_LOCATION_PERMISSION) {
-            if (grantResults.size > 0 && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+            if (grantResults.isNotEmpty() && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 enableMyLocation()
             }
         }

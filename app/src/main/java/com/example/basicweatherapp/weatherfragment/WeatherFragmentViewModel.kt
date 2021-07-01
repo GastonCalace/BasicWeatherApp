@@ -56,11 +56,6 @@ class WeatherFragmentViewModel(application: Application) : AndroidViewModel(appl
                     }
                 }
             }
-        } else {
-            val activeNetworkInfo = connectivityManager.activeNetworkInfo
-            if (activeNetworkInfo != null && activeNetworkInfo.isConnected) {
-                return true
-            }
         }
         return false
     }

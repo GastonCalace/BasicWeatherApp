@@ -49,6 +49,21 @@ fun FrameLayout.bindFrameLayout(currentWeather: CurrentWeather?) {
     }
 }
 
+@BindingAdapter("Location")
+fun TextView.bindLocation(timeZone: String?) {
+    if (timeZone != null){
+        var locationName: String?
+        var locationNameUnslashed: String?
+
+        val splitSlashLocation = timeZone.split("/")
+        locationNameUnslashed = locationNameUnslashed(splitSlashLocation)
+
+        val splitUnderscoreLocation = locationNameUnslashed?.split("_")
+        locationName = nameLocation(splitUnderscoreLocation)
+        text = locationName
+    }
+}
+
 @BindingAdapter("todayDate")
 fun TextView.bindTodayDate(date: Date?) {
     if (date != null){
@@ -96,4 +111,35 @@ fun TextView.bindDayOfTheWeek(dayWeather: DayWeather?) {
 @BindingAdapter("temperatureMinMaxText")
 fun TextView.bindTemperatureMinMaxText(dayWeather: DayWeather?) {
     text = StringBuilder("Min:".plus(dayWeather?.tempMin.toString()).plus("°C / ").plus("Max:").plus(dayWeather?.tempMax.toString()).plus("°C"))
+}
+
+
+
+private fun locationNameUnslashed(location: List<String>?): String? {
+    var nameLocation: String? = null
+    for (i in 1 until (location!!.size)) {
+        nameLocation = if (location[i] != location.last() ){
+            if (nameLocation == null)
+                StringBuilder(location[i].trim().plus(",")).toString()
+            else
+                StringBuilder(nameLocation.plus(location[i].trim()).plus(",")).toString()
+        } else {
+            if (nameLocation == null)
+                StringBuilder(location[i].trim()).toString()
+            else
+                StringBuilder(nameLocation.plus(location[i].trim())).toString()
+        }
+    }
+    return nameLocation
+}
+
+private fun nameLocation(location: List<String>?): String? {
+    var nameLocation: String? = null
+    for (i in 0 until (location?.size ?: 1)) {
+        nameLocation = if (nameLocation == null)
+            StringBuilder(location?.get(i)?.trim().plus(" ")).toString()
+        else
+            StringBuilder(nameLocation.plus(location?.get(i)?.trim()).plus(" ")).toString()
+    }
+    return nameLocation
 }

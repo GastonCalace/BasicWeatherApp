@@ -1,12 +1,13 @@
 package com.example.basicweatherapp.network
 
 import com.example.basicweatherapp.BuildConfig
+import com.example.basicweatherapp.Constants.BASE_PATH
+import com.example.basicweatherapp.Constants.BASE_URL
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
@@ -17,7 +18,7 @@ private val moshi = Moshi.Builder()
         .build()
 
 interface ApiService {
-    @GET("data/2.5/onecall")
+    @GET(BASE_PATH)
     fun getCurrentWeatherAsync(
         @Query("lat") lat: String,
         @Query("lon") lon: String,
@@ -26,7 +27,7 @@ interface ApiService {
         @Query("appid") apiKey: String = BuildConfig.ONE_CALL_API_KEY
     ): Deferred<String>
 
-    @GET("data/2.5/onecall")
+    @GET(BASE_PATH)
     fun getForecastAsync(
         @Query("lat") lat: String,
         @Query("lon") lon: String,
@@ -38,11 +39,10 @@ interface ApiService {
 
 object WeatherApi {
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://api.openweathermap.org/")
+        .baseUrl(BASE_URL)
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
 
     val retrofitService = retrofit.create(ApiService::class.java)

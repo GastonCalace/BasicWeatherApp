@@ -8,43 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.basicweatherapp.databinding.ListViewItemBinding
 import com.example.basicweatherapp.domain.DayWeather
 
-
-//class WeatherRecyclerViewAdapter(private val dataSet: List<DayWeather>) :
-//    RecyclerView.Adapter<WeatherRecyclerViewAdapter.ViewHolder>() {
-//
-//    /**
-//     * Provide a reference to the type of views that you are using
-//     * (custom ViewHolder).
-//     */
-//    class ViewHolder(private var binding: ListViewItemBinding) : RecyclerView.ViewHolder(binding.root) {
-//        fun bind(dayWeather: DayWeather){
-//            binding.apply {
-//                weather = dayWeather
-//                executePendingBindings()
-//            }
-//        }
-//
-//    }
-//
-//    // Create new views (invoked by the layout manager)
-//    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-//        // Create a new view, which defines the UI of the list item
-//        return ViewHolder(ListViewItemBinding.inflate(LayoutInflater.from(viewGroup.context)))
-//    }
-//
-//    // Replace the contents of a view (invoked by the layout manager)
-//    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-//
-//        // Get element from your dataset at this position and replace the
-//        // contents of the view with that element
-//        viewHolder.bind(dataSet[position])
-//    }
-//
-//    // Return the size of your dataset (invoked by the layout manager)
-//    override fun getItemCount() = dataSet.size
-//
-//}
-
 class WeatherRecyclerViewAdapter :
         ListAdapter<DayWeather, WeatherRecyclerViewAdapter.ViewHolder>(AsteroidDiffCallBack) {
 

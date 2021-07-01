@@ -12,7 +12,7 @@ interface CurrentWeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(currentWeather: DatabaseCurrentWeather)
 
-    @Query("DELETE FROM databasecurrentweather")
+    @Query("DELETE FROM DatabaseCurrentWeather")
     fun clearPastWeather()
 }
 

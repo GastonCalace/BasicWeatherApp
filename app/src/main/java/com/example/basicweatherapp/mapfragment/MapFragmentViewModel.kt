@@ -16,8 +16,8 @@ class MapFragmentViewModel(application: Application): AndroidViewModel(applicati
 
     fun selectLocation(locationSelected: LatLng?) {
         if (locationSelected != null){
-            prefs.setLatitude(locationSelected!!.latitude)
-            prefs.setLongitude(locationSelected!!.longitude)
+            prefs.setLatitude(locationSelected.latitude)
+            prefs.setLongitude(locationSelected.longitude)
         }
     }
 

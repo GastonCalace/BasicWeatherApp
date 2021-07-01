@@ -27,10 +27,4 @@ class DayWeatherRepository(private val database: DayWeatherDatabase) {
                 .asDatabaseModel())
         }
     }
-
-    fun getDayWeatherList(): LiveData<List<DayWeather>> {
-        return Transformations.map(database.weatherDayDao.getWeatherOfWeek()) {
-            it.asDomainModel()
-        }
-    }
 }
