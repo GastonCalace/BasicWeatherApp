@@ -1,20 +1,40 @@
 package com.example.basicweatherapp
 
 import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.animation.ValueAnimator.REVERSE
 import android.content.Context
+import android.view.View
 import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.basicweatherapp.weatherfragment.animations.*
 
 
 fun clearDay(context: Context, frameLayout: FrameLayout) {
-    val sunBrightness = newItem(context, frameLayout, R.drawable.sun_image, 1f)
-    val sunY = positionY(sunBrightness, 30f, 30f)
-    val sunX = positionX(sunBrightness, 30f, 30f)
+    val sunBrightness1 = newItem(context, frameLayout, R.drawable.sun_image, .6f)
+    val sunY1 = positionY(sunBrightness1, 30f, 30f)
+    val sunX1 = positionX(sunBrightness1, 30f, 30f)
+    sunBrightness1.scaleX = .8f
+    sunBrightness1.scaleY = sunBrightness1.scaleX * 0.9f
+    val rotater1 = ObjectAnimator.ofFloat(sunBrightness1, View.ROTATION, -0f, 360f)
+    rotater1.duration = 12000L
+
+    val sunBrightness2 = newItem(context, frameLayout, R.drawable.sun_image, .6f)
+    val sunY2 = positionY(sunBrightness2, 30f, 30f)
+    val sunX2 = positionX(sunBrightness2, 30f, 30f)
+    sunBrightness2.scaleX = .9f
+    sunBrightness2.scaleY = sunBrightness2.scaleX * 0.9f
+    val rotater2 = ObjectAnimator.ofFloat(sunBrightness2, View.ROTATION, -0f, 360f)
+    rotater2.duration = 15000L
+
+    val sun = newItem(context, frameLayout, R.drawable.sun_image, 1f)
+    val sunY = positionY(sun, 30f, 30f)
+    val sunX = positionX(sun, 30f, 30f)
+    sun.scaleX = .6f
+    sun.scaleY = sun.scaleX
 
     val set = AnimatorSet()
-    set.playTogether(sunY, sunX)
+    set.playTogether(sunY1, sunX1, rotater1, sunY2, sunX2, rotater2, sunY, sunX)
     set.start()
 
     val background = frameLayout.parent as ConstraintLayout
